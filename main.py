@@ -9,6 +9,9 @@ screen = pygame.display.set_mode((288,512))
 pygame.display.set_caption("Floppy Bird")
 icon = pygame.image.load("imgs/bird1.png")
 pygame.display.set_icon(icon)
+scorefont = pygame.font.Font("freesansbold.ttf", 30)
+restartfont = pygame.font.Font("freesansbold.ttf", 18)
+gameoverfont = scorefont = pygame.font.Font("freesansbold.ttf", 50)
 
 #loading the images
 background = pygame.image.load("imgs/bg.png")
@@ -51,6 +54,17 @@ def collsion2():
 				return True
 			elif y_bird > y_pipe+320 +120:
 				return True
+def show_score(x,y):
+	score_value = scorefont.render(str(score), True, (255,255,255))
+	screen.blit(score_value, (x,y))
+def show_game_over(x,y):
+	game_over_render = gameoverfont.render("Game Over", True, (255,255,255))
+	screen.blit(game_over_render, (x,y))
+def restarter(x,y,text):
+	restart_render = restartfont.render(text, True, (255,255,255))
+	screen.blit(restart_render, (x,y))
+
+
 
 	
 
@@ -123,15 +137,48 @@ while running:
 			screen.blit(bird3,(x_bird,y_bird))
 			i = 1
 
+		show_score(135, 40)
+		
 		if collsion1() or collsion2():
 			game_status = "over"
 		if y_bird >376:
 			game_status = "over"
 	elif game_status == "over":
 
-		print("over")
-		print(score)
-		break
+		
+		restarter(10,250, "Press Enter To Restart")
+		restarter(10,268, "Press Esc To Close")
+		show_game_over(10, 200)
+
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				running = False
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_SPACE:
+					game_status = "not over"
+					x_bg = 0
+					x_bg1 = 288
+					x_pipe = 0
+					y_pipe1 = randint(-220,-50)
+					y_pipe = randint(-220,-50)
+					x_add = randint(40+288,196+288) 
+					x_add1 = x_add + 230
+					speed = 0.5
+					i=1
+					t0 = 0
+					space_status = "not pressed"
+					x_bird = 50
+					y_bird = 250
+					u = 250
+					score = 0
+				if event.key == pygame.K_ESCAPE:
+					running = False
+
+
+
+
+		#print(score)
+		
 
 
 	
