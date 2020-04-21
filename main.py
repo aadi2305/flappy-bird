@@ -2,6 +2,8 @@ import pygame
 import random
 from random import randint
 import time
+from pygame import mixer
+
 
 #all the prerequisits 
 pygame.init()
@@ -12,6 +14,13 @@ pygame.display.set_icon(icon)
 scorefont = pygame.font.Font("freesansbold.ttf", 30)
 restartfont = pygame.font.Font("freesansbold.ttf", 18)
 gameoverfont = scorefont = pygame.font.Font("freesansbold.ttf", 50)
+
+#music
+mixer.music.load("sounds/music.mp3")
+mixer.music.play(-1)
+flying_sound = mixer.Sound("sounds/flying sound.wav")
+collsion_sound = mixer.Sound("sounds/collision sound.wav")
+point_sound = mixer.Sound("sounds/point sound.wav")
 
 #loading the images
 background = pygame.image.load("imgs/bg.png")
@@ -44,15 +53,21 @@ def collsion1():
 	if x_bird> x_add:
 		if x_bird< x_add+ 52:
 			if y_bird< y_pipe1 + 320:
+				collsion_sound.play()
 				return True
 			elif y_bird > y_pipe1 +320 +120:
+				collsion_sound.play()
 				return True
+
 def collsion2():
 	if x_bird> x_add1:
 		if x_bird< x_add1+ 52:
 			if y_bird< y_pipe+ 320:
+				collsion_sound.play()
+
 				return True
 			elif y_bird > y_pipe+320 +120:
+				collsion_sound.play()
 				return True
 def show_score(x,y):
 	score_value = scorefont.render(str(score), True, (255,255,255))
@@ -80,6 +95,7 @@ while running:
 				#print("Space")
 				t0 = time.clock()
 				space_status = "pressed"
+				flying_sound.play()
 				temp = y_bird
 	if game_status == "not over":
 		screen.blit(background, (x_bg,0))
@@ -103,10 +119,12 @@ while running:
 			x_add = randint(30+288,206+288)
 			y_pipe1 = randint(-220,-80)
 			score+= 10
+			point_sound.play()
 		if x_add1 < -52:
 			x_add1 = x_add + 230
 			y_pipe = randint(-220,-80)
 			score+= 10
+			point_sound.play()
 		
 
 
@@ -143,6 +161,7 @@ while running:
 			game_status = "over"
 		if y_bird >376:
 			game_status = "over"
+			collsion_sound.play()
 	elif game_status == "over":
 
 		

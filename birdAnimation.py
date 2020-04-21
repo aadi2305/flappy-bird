@@ -53,6 +53,15 @@ while running:
 			y_bird = temp - ((u*t) - (9.8*t**2)/2 )
 			temp1 = y_bird
 			t_0 = time.clock()
+			if i==1:
+				pygame.transform.rotate(bird1, angle)
+				i = 2
+			elif i == 2:
+				pygame.transform.rotate(bird2, angle)
+				i = 3
+			elif i== 3:
+				pygame.transform.rotate(bird3, angle)
+				i = 1
 
 		if t>=total_time:
 			t1 = time.clock() - t_0
