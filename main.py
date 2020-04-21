@@ -40,8 +40,17 @@ u = 250
 running = True
 while running:
 	#setting up the background which is constantly moving
+	
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			running = False
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_SPACE:
+				print("Space")
+				t0 = time.clock()
+				space_status = "pressed"
+				temp = y_bird
 	if game_status == "not over":
-		
 		screen.blit(background, (x_bg,0))
 		screen.blit(background,(x_bg1,0))
 
@@ -71,16 +80,7 @@ while running:
 		if x_bg == -288:
 			x_bg = 288
 		if x_bg1 == -288:
-			 x_bg1 = 288	
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				running = False
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_SPACE:
-					print("Space")
-					t0 = time.clock()
-					space_status = "pressed"
-					temp = y_bird
+			 x_bg1 = 288
 		t = time.clock() - t0
 		total_time = 0.3
 		if space_status == "pressed":
@@ -108,6 +108,7 @@ while running:
 	elif game_status == "over":
 
 		print("over")
+		break
 
 	
 
