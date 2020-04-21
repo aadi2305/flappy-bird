@@ -26,11 +26,35 @@ x_add1 = randint(30,250)
 
 running = True
 while running:
-	#setting up the background which is constantly moving
-	screen.blit(background,(0,0))
-	screen.blit(base,(0,400))
-	screen.blit(inverted_pipe, (30, -150))
-	screen.blit(inverted_pipe, (288-30-52, -150))
+	if game_status == "not over":
+		
+		screen.blit(background, (x_bg,0))
+		screen.blit(background,(x_bg1,0))
+
+		
+		
+
+		screen.blit(base, (x_bg,400))
+		screen.blit(base, (x_bg1,400))
+		
+		x_bg -= 0.6
+		x_bg1 -= 0.6
+		x_add -= 0.6
+		x_add1 -= 0.6
+
+		if x_add < -52:
+			x_add = randint(30+288,206+288)
+			y_pipe1 = randint(-220,-50)
+		if x_add1 < -52:
+			x_add1 = x_add + 230
+			y_pipe = randint(-220,-50)
+		
+
+
+		if x_bg == -288:
+			x_bg = 388
+		if x_bg1 == -288:
+			 x_bg1 = 388	
 	
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
