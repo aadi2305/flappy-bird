@@ -35,6 +35,23 @@ space_status = "not pressed"
 x_bird = 50
 y_bird = 250
 u = 250
+score = 0
+
+def collsion1():
+	if x_bird> x_add:
+		if x_bird< x_add+ 52:
+			if y_bird< y_pipe1 + 320:
+				return True
+			elif y_bird > y_pipe1 +320 +120:
+				return True
+def collsion2():
+	if x_bird> x_add1:
+		if x_bird< x_add1+ 52:
+			if y_bird< y_pipe+ 320:
+				return True
+			elif y_bird > y_pipe+320 +120:
+				return True
+
 	
 
 running = True
@@ -46,7 +63,7 @@ while running:
 			running = False
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_SPACE:
-				print("Space")
+				#print("Space")
 				t0 = time.clock()
 				space_status = "pressed"
 				temp = y_bird
@@ -70,10 +87,12 @@ while running:
 
 		if x_add < -52:
 			x_add = randint(30+288,206+288)
-			y_pipe1 = randint(-220,-50)
+			y_pipe1 = randint(-220,-80)
+			score+= 10
 		if x_add1 < -52:
 			x_add1 = x_add + 230
-			y_pipe = randint(-220,-50)
+			y_pipe = randint(-220,-80)
+			score+= 10
 		
 
 
@@ -103,12 +122,17 @@ while running:
 		elif i== 3:
 			screen.blit(bird3,(x_bird,y_bird))
 			i = 1
+
+		if collsion1() or collsion2():
+			game_status = "over"
 		if y_bird >376:
 			game_status = "over"
 	elif game_status == "over":
 
 		print("over")
+		print(score)
 		break
+
 
 	
 
